@@ -29,6 +29,10 @@ function stopGame() {
     intervalIDs.forEach(clearInterval);
 }
 
+function showInstructions() {
+    window.location.href = "instruction.html";
+}
+
 function restart() {
     window.location.reload();
     return false;

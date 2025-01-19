@@ -7,7 +7,8 @@ body {
     margin: 0;
     background-image: url('img/5_background/BackgroundMain.png');
     background-repeat: no-repeat;
-    background-position: bottom;
+    background-position: left top;
+    backdrop-filter: brightness(1.1);
     font-family: 'ZABARS', 'sans-serif';
 }
 
@@ -22,6 +23,35 @@ h1 {
     letter-spacing: 3px;
     text-shadow: 4px 4px 8px rgb(0, 0, 0, 0.4);
     color: #644D39;
+}
+
+h2 {
+    font-size: 62px;
+    color: #644D39;
+    letter-spacing: 3px;
+    margin: 68px 12px 22px 12px;
+}
+
+h3 {
+    font-size: 58px;
+    letter-spacing: 3px;
+    color: #641e0b;
+    margin: 20px;
+}
+
+.btn {
+    background: none;
+    cursor: pointer;
+    border: none;
+    margin: 42px;
+    font-size: 68px;
+    color: #641e0b;
+    box-shadow: 4px 4px 8px rgb(0, 0, 0, 0.4);
+    border-radius: 25px;
+}
+
+.btn:hover{
+    color: black;
 }
 
 .startScreen {
@@ -96,13 +126,36 @@ canvas {
     display: none;
 }
 
-.rulesIcons {
+.details {
     margin-top: 12px;
     display: flex;
+    justify-content: space-between;
+    padding: 0px 42px;
+}
+
+p {
+    font-size: 44px;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+span {
+    font-size: 62px;
+    color: #641e0b;
+    letter-spacing: 3px;
+    cursor: pointer;
+}
+
+span:hover {
     color: black;
-    font-size: 32px;
-    letter-spacing: 0.5px;
-    background-color: #ffa500a8;
+}
+
+.rulesIcons {
+    width: 960px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 42px;
+    background-color: #ffa50059;
     border-radius: 15px;
     box-shadow: 4px 4px 8px rgb(0, 0, 0, 0.4);
 }
@@ -117,6 +170,7 @@ canvas {
     width: 100%;
     display: flex;
     flex-direction: column;
+    font-size: 52px;
 }
 
 .partHalf {
