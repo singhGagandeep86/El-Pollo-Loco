@@ -1,0 +1,147 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    background-image: url('img/5_background/BackgroundMain.png');
+    background-repeat: no-repeat;
+    background-position: bottom;
+    font-family: 'ZABARS', 'sans-serif';
+}
+
+@font-face {
+    font-family: 'ZABARS';
+    src: url('Fonts/ZABARS/Zabars.ttf') format('truetype');
+}
+
+h1 {
+    margin: 10px;
+    font-size: 58px;
+    letter-spacing: 3px;
+    text-shadow: 4px 4px 8px rgb(0, 0, 0, 0.4);
+    color: #644D39;
+}
+
+.startScreen {
+    width: 720px;
+    height: 480px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px rgb(0, 0, 0, 0.6);
+}
+
+.introScreen {
+    display: flex;
+}
+
+.introBtns {
+    display: flex;
+    justify-content: space-evenly;
+    position: absolute;
+    top: 8px;
+    left: 108px;
+    width: 498px;
+    height: 100px;
+}
+
+.introBtn {
+    color: #ffcc00;
+    background-color: transparent;
+    font-size: 42px;
+    letter-spacing: 3px;
+    text-shadow: 4px 4px 8px rgb(0, 0, 0, 0.6);
+    font-family: 'ZABARS', 'sans-serif';
+    border: none;
+    cursor: pointer;
+}
+
+.introBtn:hover {
+    font-size: 46px;
+    letter-spacing: 2px;
+}
+
+.gameScreen {
+    width: 720px;
+    height: 480px;
+}
+
+canvas {
+    background-color: black;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px rgb(0, 0, 0, 0.6);
+}
+
+.result {
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    padding: 56px 145px;
+    border-radius: 15px;
+    background-color: rgb(0, 0, 0, 0.3);
+}
+
+.resultLost {
+    position: absolute;
+    width: 100%;
+    height: 78%;
+    border-radius: 15px;
+}
+
+.gameCanvas {
+    position: relative;
+}
+
+.disNone {
+    display: none;
+}
+
+.rulesIcons {
+    margin-top: 12px;
+    display: flex;
+    color: black;
+    font-size: 32px;
+    letter-spacing: 0.5px;
+    background-color: #ffa500a8;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px rgb(0, 0, 0, 0.4);
+}
+
+.rulesIcon {
+    width: 82px;
+    height: 68px;
+    margin: 0px 10px;
+}
+
+.part {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.partHalf {
+    display: flex;
+    align-items: center;
+    margin: 0px 18px;
+}
+
+.icons {
+    display: flex;
+    position: absolute;
+    justify-content: space-evenly;
+    top: 422px;
+    right: 0px;
+    width: 222px;
+    height: 72px;
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.icon:hover {
+    width: 54px;
+    height: 54px;
+}
