@@ -1,7 +1,10 @@
 class Coins extends MoveableObject {
     height = 110;
     width = 110;
-
+    IMAGES = [
+        'img/8_coin/coin_1.png',
+        'img/8_coin/coin_2.png'
+    ]
     offset = {
         top: 38,
         left: 38,
@@ -10,8 +13,16 @@ class Coins extends MoveableObject {
     };
 
     constructor(x, y) {
-        super().loadImage('img/8_coin/coin_1.png');
+        super().loadImage(this.IMAGES[0]);
+        this.loadImages(this.IMAGES);
         this.x = x;
         this.y = y;
+        this.animate();
+    }
+
+    animate() {
+        setInterval(() => {
+            this.playAnimation(this.IMAGES);
+        }, 600);
     }
 }

@@ -14,7 +14,10 @@ function init() {
     gameScreen.classList.remove('disNone');
     introButtons.classList.add('disNone');
     introScreen.classList.add('disNone');
+    resultBoard.classList.add('disNone');
     world = new World(canvas, keyboard, sounds);
+    world.sounds.WINNING.pause();
+    world.sounds.LOST.pause();
     level = level1;
     music = false;
     toggleMusic();
@@ -102,16 +105,21 @@ function exitFullscreen(document) {
     }
 }
 
-
 function toggleMusic() {
     let musicIcon = document.getElementById('musicIcon');
     if (music == true) {
         sounds.NORMAL_GAME.pause();
+        sounds.BOSS.pause();
         musicIcon.src = "img/icons/mute.png";
         music = false;
     } else {
-        sounds.NORMAL_GAME.play();
-        sounds.NORMAL_GAME.loop = true;
+        if (world.endboss.x - world.character.x >= 450) {
+            sounds.NORMAL_GAME.play();
+            sounds.NORMAL_GAME.loop = true;
+        } else {
+            sounds.BOSS.play();
+            sounds.BOSS.loop = true;
+        }
         musicIcon.src = "img/icons/volume.png";
         music = true;
     }

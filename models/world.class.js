@@ -7,7 +7,7 @@ class World {
     bottlesstatusBar = new BottlesStatusBar(this);
     endbossstatusbar = new EndbossStatusBar(this);
     endboss = new Endboss(this);
-    level = level1;
+    level = createLevel1();
     sounds;
     canvas;
     ctx;
@@ -57,13 +57,12 @@ class World {
         // }
     }
 
-
-
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 if (this.character.inAir()) {
                     this.character.jump();
+                    this.sounds.CHICKEN_DIE.play();
                     enemy.dyingAnimation();
                     setTimeout(() => {
                         this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);

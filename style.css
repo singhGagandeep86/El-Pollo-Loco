@@ -39,12 +39,6 @@ h3 {
     margin: 20px;
 }
 
-h4 {
-    font-size: 38px;
-    margin: 12px;
-    letter-spacing: 3px;
-}
-
 .btn {
     background: none;
     cursor: pointer;
@@ -143,10 +137,9 @@ canvas {
 }
 
 p {
-    font-size: 22px;
+    font-size: 48px;
     letter-spacing: 2px;
     text-align: center;
-    font-family: ui-sans-serif;
     padding: 0px 64px;
 }
 
@@ -162,7 +155,6 @@ span:hover {
 }
 
 .rulesIcons {
-    width: 960px;
     display: flex;
     justify-content: space-between;
     padding: 0px 42px;
@@ -178,7 +170,6 @@ span:hover {
 }
 
 .part {
-    width: 100%;
     display: flex;
     flex-direction: column;
     font-size: 52px;

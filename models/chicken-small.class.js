@@ -29,11 +29,12 @@ class ChickenSmall extends MoveableObject {
                 this.playAnimation(this.walkingImages);
             }
         }, 800 / 3);
-
-
         setInterval(() => {
             if (!this.died) {
                 this.moveLeft();
+                setTimeout(() => {
+                    this.jump();
+                }, 1000);
             }
         }, 1000 / 60);
     }
