@@ -39,19 +39,28 @@ h3 {
     margin: 20px;
 }
 
+h4 {
+    font-size: 38px;
+    margin: 12px;
+    letter-spacing: 3px;
+}
+
 .btn {
     background: none;
     cursor: pointer;
     border: none;
     margin: 42px;
     font-size: 68px;
+    padding: 17px 23px;
     color: #641e0b;
     box-shadow: 4px 4px 8px rgb(0, 0, 0, 0.4);
-    border-radius: 25px;
+    border-radius: 50%;
+    background-color: bisque;
 }
 
-.btn:hover{
+.btn:hover {
     color: black;
+    backdrop-filter: brightness(4);
 }
 
 .startScreen {
@@ -134,9 +143,11 @@ canvas {
 }
 
 p {
-    font-size: 44px;
+    font-size: 22px;
     letter-spacing: 2px;
     text-align: center;
+    font-family: ui-sans-serif;
+    padding: 0px 64px;
 }
 
 span {

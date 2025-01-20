@@ -62,7 +62,7 @@ class Character extends MoveableObject {
         'img/2_character_pepe/5_dead/D-57.png'
     ];
     world;
-    speed = 4;
+    speed = 2;
     count = 0;
 
     offset = {

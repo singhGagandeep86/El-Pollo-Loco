@@ -29,8 +29,16 @@ function stopGame() {
     intervalIDs.forEach(clearInterval);
 }
 
+function showGameScreen() {
+    window.location.href = "index.html";
+}
+
 function showInstructions() {
     window.location.href = "instruction.html";
+}
+
+function showImpressum() {
+    window.location.href = "impressum.html";
 }
 
 function restart() {
