@@ -28,7 +28,10 @@ function createLevel1() {
             new Clouds(1500),
             new Clouds(2100),
             new Clouds(2400),
-            new Clouds(2600)
+            new Clouds(2600),
+            new Clouds(3300),
+            new Clouds(4000),
+            new Clouds(4700)
         ],
         [
             new BackgroundObject('img/5_background/layers/air.png', -718),

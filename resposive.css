@@ -1,0 +1,15 @@
+@media only screen and (max-width: 720px) {
+    body, canvas, .gameCanvas, .gameScreen, .introScreen, .startScreen, .rulesIcons {
+        width: 100%;
+    }
+
+    h1, .details {
+        display: none;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    body, canvas, .gameCanvas, .gameScreen, .introScreen, .startScreen, .rulesIcons {
+        height: 100vh;
+    }
+}

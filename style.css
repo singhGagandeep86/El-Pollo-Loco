@@ -1,3 +1,10 @@
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -10,6 +17,7 @@ body {
     background-position: left top;
     backdrop-filter: brightness(1.1);
     font-family: 'ZABARS', 'sans-serif';
+    overflow: hidden;
 }
 
 @font-face {
@@ -58,6 +66,7 @@ h3 {
 }
 
 .startScreen {
+    display: block;
     width: 720px;
     height: 480px;
     border-radius: 15px;
@@ -73,7 +82,7 @@ h3 {
     justify-content: space-evenly;
     position: absolute;
     top: 8px;
-    left: 108px;
+    left: 124px;
     width: 498px;
     height: 100px;
 }
@@ -99,10 +108,21 @@ h3 {
     height: 480px;
 }
 
+:fullscreen,
+:-webkit-full-screen,
+:-ms-fullscreen {
+    width: 100%;
+    height: 100%;
+}
+
+
 canvas {
+    display: block;
     background-color: black;
     border-radius: 15px;
     box-shadow: 4px 4px 8px rgb(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
 }
 
 .result {
@@ -117,16 +137,17 @@ canvas {
 .resultLost {
     position: absolute;
     width: 100%;
-    height: 78%;
+    height: 87%;
     border-radius: 15px;
 }
 
 .gameCanvas {
+    display: block;
     position: relative;
 }
 
 .disNone {
-    display: none;
+    display: none !important;
 }
 
 .details {
@@ -169,24 +190,10 @@ span:hover {
     margin: 0px 10px;
 }
 
-.part {
-    display: flex;
-    flex-direction: column;
-    font-size: 52px;
-}
-
-.partHalf {
-    display: flex;
-    align-items: center;
-    margin: 0px 18px;
-}
-
 .icons {
     display: flex;
-    position: absolute;
     justify-content: space-evenly;
-    top: 422px;
-    right: 0px;
+    align-items: center;
     width: 222px;
     height: 72px;
 }
@@ -201,3 +208,22 @@ span:hover {
     width: 54px;
     height: 54px;
 }
+
+.mobilePanel{
+    position: absolute;
+    bottom: 86px;
+    display: flex;
+}
+
+.partHalf {
+    display: flex;
+    align-items: center;
+    margin: 0px 82px;
+}
+
+.mblBtn{
+    border-radius: 50%;
+    width: 48px;
+    margin: 0px 28px;
+}
+

@@ -19,6 +19,13 @@ class Bottles extends MoveableObject {
         this.loadImages(this.IMAGES);
         this.x = x;
         this.y = y;
+        this.animate();
+    }
+
+    animate() {
+        setInterval(() => {
+            this.playAnimation(this.IMAGES);
+        }, 600);
     }
 
 }

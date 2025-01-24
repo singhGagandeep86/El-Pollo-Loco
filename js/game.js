@@ -1,35 +1,71 @@
 
-let canvas;
+let canvas = document.getElementById('canvas');
 let world;
 let keyboard = new Keyboard();
 let sounds = new Sounds();
 let music = true;
-let intervalIDs = [];
+let gameScreen = document.getElementById('gameScreen');
+let introButtons = document.getElementById('introButtons');
+let introScreen = document.getElementById('introScreen');
+let iconsInGame = document.getElementById('iconsInGame');
+let musicIcon = document.getElementById('musicIcon');
+let isFullscreen = false;
 
 function init() {
-    canvas = document.getElementById('canvas');
-    gameScreen = document.getElementById('gameScreen');
-    introButtons = document.getElementById('introButtons');
-    introScreen = document.getElementById('introScreen');
     gameScreen.classList.remove('disNone');
     introButtons.classList.add('disNone');
     introScreen.classList.add('disNone');
     resultBoard.classList.add('disNone');
+    iconsInGame.classList.remove('disNone');
     world = new World(canvas, keyboard, sounds);
-    world.sounds.WINNING.pause();
-    world.sounds.LOST.pause();
-    level = level1;
     music = false;
     toggleMusic();
+    keyboard.attachButtonPressEvents();
+    world.sounds.WINNING.pause();
+    world.sounds.LOST.pause();
 }
 
-function setstoppableInterval(fn, time) {
-    let id = setInterval(fn, time);
-    intervalIDs.push(id);
+function restart() {
+    if (world) {
+        for (let i = 1; i < 9999; i++) window.clearInterval(i);
+        gameScreen.classList.add('disNone');
+        introButtons.classList.remove('disNone');
+        introScreen.classList.remove('disNone');
+        resultBoard.classList.add('disNone');
+        music = true;
+        toggleMusic();
+        world.sounds.WINNING.pause();
+        world.sounds.LOST.pause();
+        level = createLevel1();
+    }
 }
 
-function stopGame() {
-    intervalIDs.forEach(clearInterval);
+function gameWon() {
+    for (let i = 1; i < 9999; i++) window.clearInterval(i);
+    music = true;
+    toggleMusic();
+    world.sounds.WINNING.play();
+    world.sounds.WINNING.loop = true;
+    resultBoard.classList.remove('disNone');
+    resultBoard.classList.remove('resultLost');
+    introButtons.classList.remove('disNone');
+    iconsInGame.classList.add('disNone');
+    resultBoard.src = "img/9_intro_outro_screens/win/won_2.png";
+}
+
+function gameLost() {
+    for (let i = 1; i < 9999; i++) window.clearInterval(i);
+    // level = createLevel1();
+    music = true;
+    toggleMusic();
+    world.sounds.LOST.play();
+    world.sounds.LOST.loop = true;
+    resultBoard.classList.remove('disNone');
+    resultBoard.classList.add('resultLost');
+    resultBoard.classList.remove('result');
+    introButtons.classList.remove('disNone');
+    iconsInGame.classList.add('disNone');
+    resultBoard.src = "img/9_intro_outro_screens/game_over/game over.png";
 }
 
 function showGameScreen() {
@@ -44,47 +80,33 @@ function showImpressum() {
     window.location.href = "impressum.html";
 }
 
-function restart() {
-    window.location.reload();
-    return false;
-}
 
-function lostGameOver() {
-    for (let i = 1; i < 9999; i++) window.clearInterval(i);
-    world.character.y = 184;
-    music = true;
-    toggleMusic();
-}
-
-function gameWon() {
-    for (let i = 1; i < 9999; i++) window.clearInterval(i);
-    music = true;
-    toggleMusic();
-    world.sounds.WINNING.play();
-    world.sounds.WINNING.loop = true;
-    resultBoard.classList.remove('disNone');
-    resultBoard.classList.remove('resultLost');
-    introButtons.classList.remove('disNone');
-    resultBoard.src = "img/9_intro_outro_screens/win/won_2.png";
-}
-
-function gameLost() {
-    for (let i = 1; i < 9999; i++) window.clearInterval(i);
-    music = true;
-    toggleMusic();
-    world.sounds.LOST.play();
-    world.sounds.LOST.loop = true;
-    resultBoard.classList.remove('disNone');
-    resultBoard.classList.remove('result');
-    introButtons.classList.remove('disNone');
-    resultBoard.src = "img/9_intro_outro_screens/game_over/game over.png";
-}
+// function toggleFullScreen() {
+//     if (isFullscreen) {
+//         exitFullscreen();
+//     } else {
+//         enterFullscreen(gameScreen);
+//     }
+// }
 
 function toggleFullScreen() {
-    let introFullscreen = document.getElementById('introScreen');
-    let canvas = document.getElementById('canvas');
-    enterFullscreen(introFullscreen);
-    enterFullscreen(canvas);
+    if (!document.fullscreenElement) {
+        if (gameScreen.requestFullscreen && canvas.requestFullscreen) {
+            gameScreen.requestFullscreen();
+            canvas.requestFullscreen();
+        } else if (gameScreen.webkitRequestFullscreen) { // Safari
+            gameScreen.webkitRequestFullscreen();
+        } else if (gameScreen.msRequestFullscreen) { // IE11
+            gameScreen.msRequestFullscreen();
+        }
+    } else {
+        // Vollbildmodus verlassen
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        }
+    }
 }
 
 function enterFullscreen(element) {
@@ -106,64 +128,31 @@ function exitFullscreen(document) {
 }
 
 function toggleMusic() {
-    let musicIcon = document.getElementById('musicIcon');
-    if (music == true) {
-        sounds.NORMAL_GAME.pause();
-        sounds.BOSS.pause();
-        musicIcon.src = "img/icons/mute.png";
-        music = false;
-    } else {
-        if (world.endboss.x - world.character.x >= 450) {
-            sounds.NORMAL_GAME.play();
-            sounds.NORMAL_GAME.loop = true;
-        } else {
-            sounds.BOSS.play();
-            sounds.BOSS.loop = true;
-        }
-        musicIcon.src = "img/icons/volume.png";
-        music = true;
+    if (music) {
+        pauseBackgroundMusic();
+    }
+    else {
+        playBackgroundMusic();
     }
 }
 
-window.addEventListener('keydown', (event) => {
-    if (event.keyCode == 40) {
-        keyboard.DOWN = true;
-    }
-    if (event.keyCode == 38) {
-        keyboard.UP = true;
-    }
-    if (event.keyCode == 37) {
-        keyboard.LEFT = true;
-    }
-    if (event.keyCode == 39) {
-        keyboard.RIGHT = true;
-    }
-    if (event.keyCode == 32) {
-        keyboard.SPACE = true;
-    }
-    if (event.keyCode == 68) {
-        keyboard.D = true;
-    }
-});
+function pauseBackgroundMusic() {
+    sounds.NORMAL_GAME.pause();
+    sounds.BOSS.pause();
+    musicIcon.src = "img/icons/mute.png";
+    music = false;
+}
 
+function playBackgroundMusic() {
+    let distanceToBoss = world.endboss.x - world.character.x;
+    if (distanceToBoss < 450) {
+        sounds.BOSS.play();
+        sounds.BOSS.loop = true;
+    } else {
+        sounds.NORMAL_GAME.play();
+        sounds.NORMAL_GAME.loop = true;
+    }
+    musicIcon.src = "img/icons/volume.png";
+    music = true;
+}
 
-window.addEventListener('keyup', (event) => {
-    if (event.keyCode == 40) {
-        keyboard.DOWN = false;
-    }
-    if (event.keyCode == 38) {
-        keyboard.UP = false;
-    }
-    if (event.keyCode == 37) {
-        keyboard.LEFT = false;
-    }
-    if (event.keyCode == 39) {
-        keyboard.RIGHT = false;
-    }
-    if (event.keyCode == 32) {
-        keyboard.SPACE = false;
-    }
-    if (event.keyCode == 68) {
-        keyboard.D = false;
-    }
-});

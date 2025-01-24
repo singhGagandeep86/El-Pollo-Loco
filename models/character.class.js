@@ -131,14 +131,14 @@ class Character extends MoveableObject {
                 this.count = 0;
                 this.world.sounds.SLEEPING.pause();
                 this.playAnimation(this.hurtingImages);
-            } else if (this.isDead()) {
+            } else if (this.isDead() && this.world.endboss.energy > 0) {
                 this.count = 0;
                 this.playAnimation(this.dyingImages);
                 this.y = 184;
-                world.sounds.NORMAL_GAME.pause();
+                this.world.sounds.NORMAL_GAME.pause();
                 setTimeout(() => {
                     gameLost();
-                }, 300);
+                }, 100);
             } else if (this.inAir()) {
                 this.count = 0;
                 this.world.sounds.SLEEPING.pause();

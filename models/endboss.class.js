@@ -120,6 +120,7 @@ class Endboss extends MoveableObject {
         this.world.sounds.BOSS_ATTACK.play();
         this.world.sounds.BOSS_ATTACK.volume = 1;
     }
+
     changeState(newState, images, action = null) {
         if (this.currentInterval) {
             clearInterval(this.currentInterval);

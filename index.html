@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Pollo Loco</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./resposive.css">
     <link rel="icon" type="image/x-icon" href="./img/icons/Favicon.png">
 
     <script src="./models/drawable-objects.class.js"></script>
@@ -37,29 +38,33 @@
         <div id="gameScreen" class="gameScreen disNone">
             <img id="resultBoard" class="result resultLost disNone">
             <canvas id="canvas" width="720" height="480"></canvas>
-            <div id="introButtons" class="introBtns">
-                <button class="introBtn" onclick="init()">Start Game</button>
-                <button class="introBtn">Game Infos</button>
-            </div>
-            <div id="icons" class="icons">
-                <img class="icon" onclick="restart()" src="./img/icons/home.png">
-                <img class="icon" id="musicIcon" onclick="toggleMusic()" src="./img/icons/volume.png">
-                <img class="icon" onclick="toggleFullScreen()" src="./img/icons/full-screen.png">
+            <div class="introBtns">
+                <button id="introButtons" class="introBtn" onclick="init()">Start Game</button>
+                <div id="iconsInGame" class="icons">
+                    <img class="icon" loading="lazy" onclick="restart()" src="./img/icons/home.png">
+                    <img class="icon" loading="lazy" id="musicIcon" onclick="toggleMusic()"
+                        src="./img/icons/volume.png">
+                    <img class="icon" loading="lazy" onclick="toggleFullScreen()" src="./img/icons/full-screen.png">
+                </div>
             </div>
         </div>
         <div id="introScreen" class="introScreen">
             <img id="startScreen" class="startScreen" src="./img/9_intro_outro_screens/start/startscreen_1.png">
             <div class="introBtns">
                 <button class="introBtn" onclick="init()">Start Game</button>
-                <button class="introBtn">Game Infos</button>
-            </div>
-            <div class="icons">
-                <img class="icon" loading="lazy" onclick="restart()" src="./img/icons/home.png">
-                <img class="icon" loading="lazy" id="musicIcon" onclick="toggleMusic()" src="./img/icons/volume.png">
-                <img class="icon" loading="lazy" onclick="toggleFullScreen()" src="./img/icons/full-screen.png">
             </div>
         </div>
+        <div class="mobilePanel disNone">
+            <div class="partHalf">
+                <img id="leftBtn" class="mblBtn" src="./img/icons/left-arrow.png">
+                <img id="rightBtn" class="mblBtn" src="./img/icons/right-arrow.png">
+            </div>
+            <div class="partHalf">
+                <img id="jumpBtn" class="mblBtn" src="./img/icons/up-arrow.png">
+                <img id="throwBtn" class="mblBtn" src="./img/icons/smallD.png">
+            </div>
 
+        </div>
         <div class="details">
             <span onclick="showInstructions()">Instructions</span>
             <span onclick="showImpressum()">Impressum</span>
