@@ -10,6 +10,9 @@ let introScreen = document.getElementById('introScreen');
 let iconsInGame = document.getElementById('iconsInGame');
 let musicIcon = document.getElementById('musicIcon');
 let mobilePanel = document.getElementById('mobilePanel');
+let instructions = document.getElementById("instructions");
+let impressum = document.getElementById("impressum");
+let gameCanvas = document.getElementById('gameCanvas');
 let isFullscreen = false;
 
 function init() {
@@ -50,6 +53,7 @@ function gameWon() {
     world.sounds.WINNING.loop = true;
     resultBoard.classList.remove('disNone');
     resultBoard.classList.remove('resultLost');
+    resultBoard.classList.add('result !important');
     introButtons.classList.remove('disNone');
     iconsInGame.classList.add('disNone');
     resultBoard.src = "img/9_intro_outro_screens/win/won_2.png";
@@ -71,21 +75,21 @@ function gameLost() {
 
 function showGameScreen() {
     document.querySelector("h1").classList.remove('disNone');
-    document.getElementById("instructions").classList.add('disNone');
-    document.getElementById("impressum").classList.add('disNone');
-    document.getElementById('gameCanvas').classList.remove('disNone');
+    instructions.classList.add('disNone');
+    impressum.classList.add('disNone');
+    gameCanvas.classList.remove('disNone');
 }
 
 function showInstructions() {
     document.querySelector("h1").classList.add('disNone');
-    document.getElementById('gameCanvas').classList.add('disNone');
-    document.getElementById("instructions").classList.remove('disNone');
+    gameCanvas.classList.add('disNone');
+    instructions.classList.remove('disNone');
 }
 
 function showImpressum() {
     document.querySelector("h1").classList.add('disNone');
-    document.getElementById('gameCanvas').classList.add('disNone');
-    document.getElementById("impressum").classList.remove('disNone');
+    gameCanvas.classList.add('disNone');
+    impressum.classList.remove('disNone');
 }
 
 function toggleFullScreen() {
@@ -93,7 +97,7 @@ function toggleFullScreen() {
         if (gameScreen.requestFullscreen && canvas.requestFullscreen) {
             gameScreen.requestFullscreen();
             canvas.requestFullscreen();
-        } else if (gameScreen.webkitRequestFullscreen) { 
+        } else if (gameScreen.webkitRequestFullscreen) {
             gameScreen.webkitRequestFullscreen();
         } else if (gameScreen.msRequestFullscreen) {
             gameScreen.msRequestFullscreen();
@@ -110,9 +114,9 @@ function toggleFullScreen() {
 function enterFullscreen(element) {
     if (element.requestFullscreen) {
         element.requestFullscreen();
-    } else if (element.msRequestFullscreen) { 
+    } else if (element.msRequestFullscreen) {
         element.msRequestFullscreen();
-    } else if (element.webkitRequestFullscreen) { 
+    } else if (element.webkitRequestFullscreen) {
         element.webkitRequestFullscreen();
     }
 }
