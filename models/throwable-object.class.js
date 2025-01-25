@@ -41,11 +41,11 @@ class ThrowableObject extends MoveableObject {
         this.y = y;
         this.width = 50;
         this.height = 68;
-        this.handleBottleThrow();
+        this.initiateThrow();
     }
 
 
-    handleBottleThrow() {
+    initiateThrow() {
         this.animate();
         this.throw();
     }

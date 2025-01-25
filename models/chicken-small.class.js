@@ -32,9 +32,6 @@ class ChickenSmall extends MoveableObject {
         setInterval(() => {
             if (!this.died) {
                 this.moveLeft();
-                setTimeout(() => {
-                    this.jump();
-                }, 1000);
             }
         }, 1000 / 60);
     }

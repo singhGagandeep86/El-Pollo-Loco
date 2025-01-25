@@ -14,10 +14,7 @@ class World {
     keyboard;
     camera_x = 0;
     throwableObjects = [];
-    bottlesCollection = [
-        new Bottles(),
-        new Bottles()
-    ];
+    bottlesCollection = [];
     coinsCollections = [];
 
     constructor(canvas, keyboard, sounds) {
@@ -25,9 +22,13 @@ class World {
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.sounds = sounds;
+        this.setUpSounds();
         this.draw();
         this.setWorld();
         this.run();
+    }
+
+    setUpSounds() {
         this.sounds.COIN.playbackRate = 2;
         this.sounds.GET_BOTTLE.playbackRate = 2;
         this.sounds.CHICKEN_DIE.playbackRate = 1;
@@ -187,19 +188,13 @@ class World {
         }, 400);
     }
 
-
     checkThrowObjects() {
         if (this.keyboard.D && this.canThrow() && this.bottlesCollection.length > 0) {
-            this.sounds.THROW_BOTTLE.play();
-            this.sounds.SLEEPING.pause();
-            this.character.count = 0;
-            this.keyboard.D = false;
-            this.character.lastThrow = Date.now();
-            this.bottlesCollection.splice(0, 1);
-            if (this.character.otherDirection === false) {
+            this.handlebottleThrow();
+            if (!this.character.otherDirection) {
                 let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
                 this.throwableObjects.push(bottle);
-            } else if (this.character.otherDirection === true) {
+            } else if (this.character.otherDirection) {
                 let bottle = new ThrowableObject(this.character.x, this.character.y + 100);
                 this.throwableObjects.push(bottle);
             }
@@ -209,6 +204,15 @@ class World {
     canThrow() {
         let cooldown = 1000;
         return !this.character.lastThrow || (Date.now() - this.character.lastThrow) > cooldown;
+    }
+
+    handlebottleThrow() {
+        this.sounds.THROW_BOTTLE.play();
+        this.sounds.SLEEPING.pause();
+        this.character.count = 0;
+        this.keyboard.D = false;
+        this.character.lastThrow = Date.now();
+        this.bottlesCollection.splice(0, 1);
     }
 
 }

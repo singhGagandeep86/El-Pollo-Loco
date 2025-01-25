@@ -9,6 +9,7 @@ let introButtons = document.getElementById('introButtons');
 let introScreen = document.getElementById('introScreen');
 let iconsInGame = document.getElementById('iconsInGame');
 let musicIcon = document.getElementById('musicIcon');
+let mobilePanel = document.getElementById('mobilePanel');
 let isFullscreen = false;
 
 function init() {
@@ -17,6 +18,7 @@ function init() {
     introScreen.classList.add('disNone');
     resultBoard.classList.add('disNone');
     iconsInGame.classList.remove('disNone');
+    mobilePanel.classList.remove('disNone');
     world = new World(canvas, keyboard, sounds);
     music = false;
     toggleMusic();
@@ -55,7 +57,6 @@ function gameWon() {
 
 function gameLost() {
     for (let i = 1; i < 9999; i++) window.clearInterval(i);
-    // level = createLevel1();
     music = true;
     toggleMusic();
     world.sounds.LOST.play();
@@ -69,38 +70,35 @@ function gameLost() {
 }
 
 function showGameScreen() {
-    window.location.href = "index.html";
+    document.querySelector("h1").classList.remove('disNone');
+    document.getElementById("instructions").classList.add('disNone');
+    document.getElementById("impressum").classList.add('disNone');
+    document.getElementById('gameCanvas').classList.remove('disNone');
 }
 
 function showInstructions() {
-    window.location.href = "instruction.html";
+    document.querySelector("h1").classList.add('disNone');
+    document.getElementById('gameCanvas').classList.add('disNone');
+    document.getElementById("instructions").classList.remove('disNone');
 }
 
 function showImpressum() {
-    window.location.href = "impressum.html";
+    document.querySelector("h1").classList.add('disNone');
+    document.getElementById('gameCanvas').classList.add('disNone');
+    document.getElementById("impressum").classList.remove('disNone');
 }
-
-
-// function toggleFullScreen() {
-//     if (isFullscreen) {
-//         exitFullscreen();
-//     } else {
-//         enterFullscreen(gameScreen);
-//     }
-// }
 
 function toggleFullScreen() {
     if (!document.fullscreenElement) {
         if (gameScreen.requestFullscreen && canvas.requestFullscreen) {
             gameScreen.requestFullscreen();
             canvas.requestFullscreen();
-        } else if (gameScreen.webkitRequestFullscreen) { // Safari
+        } else if (gameScreen.webkitRequestFullscreen) { 
             gameScreen.webkitRequestFullscreen();
-        } else if (gameScreen.msRequestFullscreen) { // IE11
+        } else if (gameScreen.msRequestFullscreen) {
             gameScreen.msRequestFullscreen();
         }
     } else {
-        // Vollbildmodus verlassen
         if (document.exitFullscreen) {
             document.exitFullscreen();
         } else if (document.webkitExitFullscreen) {
@@ -112,9 +110,9 @@ function toggleFullScreen() {
 function enterFullscreen(element) {
     if (element.requestFullscreen) {
         element.requestFullscreen();
-    } else if (element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
+    } else if (element.msRequestFullscreen) { 
         element.msRequestFullscreen();
-    } else if (element.webkitRequestFullscreen) {  // iOS Safari
+    } else if (element.webkitRequestFullscreen) { 
         element.webkitRequestFullscreen();
     }
 }

@@ -34,27 +34,61 @@
 
 <body>
     <h1>El Pollo Loco</h1>
-    <div class="gameCanvas">
+    <div id="instructions" class="instructions disNone">
+        <h2>Welcome to</h2>
+        <h3>El Pollo Loco</h3>
+
+        <p>Step into the thrilling universe of <br> El Pollo Loco <br> where challenges and excitement <br> come to
+            life!
+            <br>Here are a few quick tips to get <br> you started on your epic journey!
+        </p>
+        <div class="rulesIcons">
+            <div class="part">
+                <div class="partHalf"><img class="rulesIcon" src="./img/icons/arrow-back.png"> Move Left</div>
+                <div class="partHalf"><img class="rulesIcon" src="./img/icons/arrow-right.png"> Move Right</div>
+            </div>
+            <div class="part">
+                <div class="partHalf"><img class="rulesIcon" src="./img/icons/letter-d.png"> Throw Tabasco Bottle</div>
+                <div class="partHalf"><img class="rulesIcon" src="./img/icons/space.png"> Jump</div>
+            </div>
+        </div>
+        <div onclick="showGameScreen()" class="btn">GO</div>
+    </div>
+    <div id="impressum" class="instructions disNone">
+        <h2>Impressum</h2>
+        <h3> Verantwortlich für den Inhalt:</h3>
+        <p><b>Singh</b>
+            <br>Frühlingstraße 5A,
+            <br>85598 Baldham,
+            <br>Deutschland
+            <br>Kontakt:
+            <br>Telefon: 0163 7052452
+            <br>E-Mail: <a href="mailto:gagan_3260@outlook.de">gagan_3260@outlook.de</a>
+        </p>
+        <div onclick="showGameScreen()" class="btn">GO</div>
+    </div>
+
+    <div id="gameCanvas" class="gameCanvas">
         <div id="gameScreen" class="gameScreen disNone">
             <img id="resultBoard" class="result resultLost disNone">
             <canvas id="canvas" width="720" height="480"></canvas>
             <div class="introBtns">
-                <button id="introButtons" class="introBtn" onclick="init()">Start Game</button>
-                <div id="iconsInGame" class="icons">
-                    <img class="icon" loading="lazy" onclick="restart()" src="./img/icons/home.png">
-                    <img class="icon" loading="lazy" id="musicIcon" onclick="toggleMusic()"
-                        src="./img/icons/volume.png">
-                    <img class="icon" loading="lazy" onclick="toggleFullScreen()" src="./img/icons/full-screen.png">
-                </div>
+                <button id="introButtons" class="introBtn" onclick="init()">Start Game</button">
+            </div>
+            <div id="iconsInGame" class="icons">
+                <img class="icon" loading="lazy" onclick="restart()" src="./img/icons/home.png">
+                <img class="icon" loading="lazy" id="musicIcon" onclick="toggleMusic()" src="./img/icons/volume.png">
+                <img class="icon" loading="lazy" onclick="toggleFullScreen()" src="./img/icons/full-screen.png">
             </div>
         </div>
         <div id="introScreen" class="introScreen">
             <img id="startScreen" class="startScreen" src="./img/9_intro_outro_screens/start/startscreen_1.png">
             <div class="introBtns">
                 <button class="introBtn" onclick="init()">Start Game</button>
+                <button class="instrctnBtn" onclick="showInstructions()">Instructions</button>
             </div>
         </div>
-        <div class="mobilePanel disNone">
+        <div id="mobilePanel" class="mobilePanel disNone">
             <div class="partHalf">
                 <img id="leftBtn" class="mblBtn" src="./img/icons/left-arrow.png">
                 <img id="rightBtn" class="mblBtn" src="./img/icons/right-arrow.png">

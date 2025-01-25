@@ -72,13 +72,7 @@ class Endboss extends MoveableObject {
             if (this.energy <= 0) {
                 this.hurtAnimation();
             } else {
-                if (distanceToPepe >= 450 && this.state !== "alert") {
-                    this.changeState("alert", this.alertImages, this.normalMusic());
-                } else if (distanceToPepe < 450 && distanceToPepe >= 60 && this.state !== "walking") {
-                    this.changeState("walking", this.walkingImages, () => this.moveLeft(), this.bossMusic());
-                } else if (distanceToPepe < 60 && this.state !== "attacking") {
-                    this.changeState("attacking", this.attackImages, this.bossAttack());
-                }
+                this.handleBossBehavior(distanceToPepe);
             }
         }, 100);
     }
@@ -87,22 +81,40 @@ class Endboss extends MoveableObject {
         this.energy -= 10;
         this.world.endbossstatusbar.setHealthPercentage();
         if (this.energy <= 0) {
-            this.changeState("dead");
-            this.playAnimation(this.dyingImages);
-            this.world.sounds.BOSS.pause();
-            setTimeout(() => {
-                gameWon();
-            }, 2000);
+            this.bossDead();
         } else {
-            this.changeState("hurt");
-            this.playAnimation(this.hurtImages);
-            if (this.energy < 50) {
-                this.speed = 50;
-                this.world.sounds.BOSS.playbackRate = 1.5;
-            }
-            this.world.sounds.BOSS_HURT.play();
-            this.world.sounds.BOSS_HURT.volume = 1;
+            this.bossHurting();
         }
+    }
+
+    handleBossBehavior(distanceToPepe) {
+        if (distanceToPepe >= 550 && this.state !== "alert") {
+            this.changeState("alert", this.alertImages, this.normalMusic());
+        } else if (distanceToPepe < 550 && distanceToPepe >= 60 && this.state !== "walking") {
+            this.changeState("walking", this.walkingImages, () => this.moveLeft(), this.bossMusic());
+        } else if (distanceToPepe < 60 && this.state !== "attacking") {
+            this.changeState("attacking", this.attackImages, this.bossAttack());
+        }
+    }
+
+    bossDead() {
+        this.changeState("dead");
+        this.playAnimation(this.dyingImages);
+        this.world.sounds.BOSS.pause();
+        setTimeout(() => {
+            gameWon();
+        }, 2000);
+    }
+
+    bossHurting() {
+        this.changeState("hurt");
+        this.playAnimation(this.hurtImages);
+        if (this.energy < 70) {
+            this.speed = 40;
+            this.world.sounds.BOSS.playbackRate = 1.3;
+        }
+        this.world.sounds.BOSS_HURT.play();
+        this.world.sounds.BOSS_HURT.volume = 1;
     }
 
     bossMusic() {

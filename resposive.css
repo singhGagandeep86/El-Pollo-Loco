@@ -6,10 +6,40 @@
     h1, .details {
         display: none;
     }
+
+    .instrctnBtn{
+        display: block;
+    }
+
+    .mobilePanel{
+       visibility: visible;
+    }
 }
 
 @media only screen and (max-height: 480px) {
     body, canvas, .gameCanvas, .gameScreen, .introScreen, .startScreen, .rulesIcons {
         height: 100vh;
     }
+
+    .instrctnBtn{
+        display: block;
+    }
+
+    .mobilePanel{
+        visibility: visible;
+     }
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.gameScreen {
+    animation: fadeIn 0.5s ease-in-out;
 }

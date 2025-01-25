@@ -1,10 +1,5 @@
 class Statusbar extends DrawableObject {
 
-    // height = 50;
-    // width = 200;
-    // y = 600;
-    // x = 100;
-
     IMAGES_HEALTH = [
         'img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png',
         'img/7_statusbars/1_statusbar/2_statusbar_health/blue/20.png',
@@ -43,8 +38,8 @@ class Statusbar extends DrawableObject {
 
     drawHealth(ctx) {
         let health = this.percentage;
-        ctx.font = '22px ZABARS'; 
-        ctx.fillStyle = 'white'; 
+        ctx.font = '22px ZABARS';
+        ctx.fillStyle = 'white';
         ctx.fillText(`${health}`, this.x + this.width + 6, this.y + 45);
     }
 }

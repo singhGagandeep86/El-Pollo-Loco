@@ -1,8 +1,7 @@
-
-*{
+* {
     box-sizing: border-box;
     margin: 0;
-    
+
 }
 
 body {
@@ -23,6 +22,12 @@ body {
 @font-face {
     font-family: 'ZABARS';
     src: url('Fonts/ZABARS/Zabars.ttf') format('truetype');
+}
+
+.instructions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h1 {
@@ -52,8 +57,10 @@ h3 {
     cursor: pointer;
     border: none;
     margin: 42px;
-    font-size: 68px;
-    padding: 17px 23px;
+    /* font-size: 68px;
+    padding: 17px 23px; */
+    font-size: 4rem;
+    padding: 1rem 1.5rem;
     color: #641e0b;
     box-shadow: 4px 4px 8px rgb(0, 0, 0, 0.4);
     border-radius: 50%;
@@ -103,18 +110,39 @@ h3 {
     letter-spacing: 2px;
 }
 
-.gameScreen {
-    width: 720px;
-    height: 480px;
+.instrctnBtn {
+    display: none;
+    color: #ffcc00;
+    background-color: transparent;
+    font-size: 42px;
+    letter-spacing: 3px;
+    text-shadow: 4px 4px 8px rgb(0, 0, 0, 0.6);
+    font-family: 'ZABARS', 'sans-serif';
+    border: none;
+    cursor: pointer;
 }
 
-:fullscreen,
-:-webkit-full-screen,
-:-ms-fullscreen {
+.instrctnBtn:hover {
+    font-size: 46px;
+    letter-spacing: 2px;
+}
+
+.gameScreen {
+    width: 100%;
+    height: auto;
+    max-width: 720px;
+}
+
+/* :fullscreen, :-webkit-full-screen, :-ms-fullscreen {
     width: 100%;
     height: 100%;
-}
+} */
 
+:fullscreen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 canvas {
     display: block;
@@ -191,16 +219,15 @@ span:hover {
 }
 
 .icons {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 222px;
-    height: 72px;
+    position: absolute;
+    top: 10px;
+    left: 40%;
 }
 
 .icon {
     width: 50px;
     height: 50px;
+    margin: 5px;
     cursor: pointer;
 }
 
@@ -209,21 +236,23 @@ span:hover {
     height: 54px;
 }
 
-.mobilePanel{
-    position: absolute;
-    bottom: 86px;
+.mobilePanel {
     display: flex;
+    justify-content: space-between;
+    position: absolute;
+    visibility: hidden;
+    left: 0;
+    right: 0;
+    bottom: 8px;
 }
 
 .partHalf {
     display: flex;
     align-items: center;
-    margin: 0px 82px;
 }
 
-.mblBtn{
+.mblBtn {
     border-radius: 50%;
     width: 48px;
     margin: 0px 28px;
 }
-

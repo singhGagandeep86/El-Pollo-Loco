@@ -62,14 +62,14 @@ class Character extends MoveableObject {
         'img/2_character_pepe/5_dead/D-57.png'
     ];
     world;
-    speed = 2;
+    speed = 1.5;
     count = 0;
 
     offset = {
         top: 120,
         left: 40,
         right: 30,
-        bottom: 30,
+        bottom: 20,
     };
     constructor() {
         super().loadImage(this.walkingImages[0]);
@@ -128,42 +128,57 @@ class Character extends MoveableObject {
     initiatingAnimations() {
         setInterval(() => {
             if (this.isHurt()) {
-                this.count = 0;
-                this.world.sounds.SLEEPING.pause();
-                this.playAnimation(this.hurtingImages);
+                this.pepeHurting();
             } else if (this.isDead() && this.world.endboss.energy > 0) {
-                this.count = 0;
-                this.playAnimation(this.dyingImages);
-                this.y = 184;
-                this.world.sounds.NORMAL_GAME.pause();
-                setTimeout(() => {
-                    gameLost();
-                }, 100);
+                this.pepeDying();
             } else if (this.inAir()) {
-                this.count = 0;
-                this.world.sounds.SLEEPING.pause();
-                this.playAnimation(this.jumpingImages);
+                this.pepeJumping();
             }
             else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT && !this.inAir()) {
-                    this.count = 0;
-                    this.world.sounds.SLEEPING.pause();
-                    this.playAnimation(this.walkingImages);
+                    this.pepeWalking();
                 }
                 else {
-                    this.playAnimation(this.idleImages);
-                    this.count++;
-                    if (this.count > 30) {
-                        this.sleepingAnimation();
-                        this.world.sounds.SLEEPING.play();
-                    }
+                    this.pepeSleeping();
                 }
             }
         }, 300 / 3);
     }
 
-    sleepingAnimation() {
-        this.playAnimation(this.longIdleImages);
+    pepeHurting() {
+        this.count = 0;
+        this.world.sounds.SLEEPING.pause();
+        this.playAnimation(this.hurtingImages);
     }
 
+    pepeDying() {
+        this.count = 0;
+        this.playAnimation(this.dyingImages);
+        this.y = 184;
+        this.world.sounds.NORMAL_GAME.pause();
+        setTimeout(() => {
+            gameLost();
+        }, 100);
+    }
+
+    pepeJumping() {
+        this.count = 0;
+        this.world.sounds.SLEEPING.pause();
+        this.playAnimation(this.jumpingImages);
+    }
+
+    pepeWalking() {
+        this.count = 0;
+        this.world.sounds.SLEEPING.pause();
+        this.playAnimation(this.walkingImages);
+    }
+
+    pepeSleeping() {
+        this.playAnimation(this.idleImages);
+        this.count++;
+        if (this.count > 30) {
+            this.playAnimation(this.longIdleImages);
+            this.world.sounds.SLEEPING.play();
+        }
+    }
 }
