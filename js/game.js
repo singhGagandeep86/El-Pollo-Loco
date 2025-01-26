@@ -13,9 +13,38 @@ let mobilePanel = document.getElementById('mobilePanel');
 let instructions = document.getElementById("instructions");
 let impressum = document.getElementById("impressum");
 let gameCanvas = document.getElementById('gameCanvas');
+let alertElement = document.getElementById('alert');
 let isFullscreen = false;
 
-function init() {
+function handleOrientation() {
+    if (window.matchMedia("(orientation: landscape)").matches) {
+        alertElement.classList.add('disNone');
+    } else {
+        alertElement.classList.remove('disNone');
+    }
+}
+
+window.addEventListener("resize", handleOrientation, true);
+window.addEventListener("orientationchange", handleOrientation, true);
+
+handleOrientation();
+
+async function init() {
+    showLoadingScreen(); // Ladeanzeige einblenden
+    await startGame(); // Spiel initialisieren
+    hideLoadingScreen(); // Ladeanzeige ausblenden
+    console.log(`test`);
+}
+
+async function showLoadingScreen() {
+    document.getElementById('loading').classList.remove('disNone');
+}
+
+async function hideLoadingScreen() {
+    document.getElementById('loading').classList.add('disNone');
+}
+
+async function startGame() {
     gameScreen.classList.remove('disNone');
     introButtons.classList.add('disNone');
     introScreen.classList.add('disNone');
@@ -53,7 +82,7 @@ function gameWon() {
     world.sounds.WINNING.loop = true;
     resultBoard.classList.remove('disNone');
     resultBoard.classList.remove('resultLost');
-    resultBoard.classList.add('result !important');
+    resultBoard.classList.add('result');
     introButtons.classList.remove('disNone');
     iconsInGame.classList.add('disNone');
     resultBoard.src = "img/9_intro_outro_screens/win/won_2.png";

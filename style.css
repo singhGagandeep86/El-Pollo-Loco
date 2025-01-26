@@ -52,13 +52,18 @@ h3 {
     margin: 20px;
 }
 
+h4 {
+    font-size: 38px;
+    letter-spacing: 1px;
+    color: black;
+    text-align: center;
+}
+
 .btn {
     background: none;
     cursor: pointer;
     border: none;
     margin: 42px;
-    /* font-size: 68px;
-    padding: 17px 23px; */
     font-size: 4rem;
     padding: 1rem 1.5rem;
     color: #641e0b;
@@ -131,11 +136,6 @@ h3 {
     height: auto;
     max-width: 720px;
 }
-
-/* :fullscreen, :-webkit-full-screen, :-ms-fullscreen {
-    width: 100%;
-    height: 100%;
-} */
 
 :fullscreen {
     display: flex;
@@ -240,7 +240,7 @@ span:hover {
 }
 
 .icon:hover {
-   filter: invert(1);
+    filter: invert(1);
 }
 
 .mobilePanel {
@@ -262,4 +262,37 @@ span:hover {
     border-radius: 50%;
     width: 48px;
     margin: 0px 28px;
+}
+
+.alert {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.rotation {
+    width: 60%;
+    transform: rotate(45deg);
+    animation: mymove 5s infinite;
+    margin: 72px;
+}
+
+@keyframes mymove {
+    100% {
+        transform: rotate(135deg);
+    }
+}
+
+.loading {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 4px 4px 8px rgb(0, 0, 0, 0.4);
+    font-size: 68px;
+    letter-spacing: 20px;
+    color: red;
 }
