@@ -44,7 +44,6 @@ class ThrowableObject extends MoveableObject {
         this.initiateThrow();
     }
 
-
     initiateThrow() {
         this.animate();
         this.throw();

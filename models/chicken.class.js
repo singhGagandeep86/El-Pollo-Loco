@@ -2,6 +2,12 @@
 class Chicken extends MoveableObject {
     height = 80;
     width = 60;
+    offset = {
+        top: 10,
+        left: 10,
+        right: 10,
+        bottom: 10,
+    };
     walkingImages = [
         'img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
         'img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
@@ -9,8 +15,7 @@ class Chicken extends MoveableObject {
     ];
     dyingImage = [
         'img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
-    ]
-
+    ];
     died = false;
 
     constructor(x) {
