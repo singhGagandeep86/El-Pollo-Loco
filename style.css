@@ -30,6 +30,11 @@ body {
     align-items: center;
 }
 
+.imprint{
+    display: flex;
+    flex-direction: column;
+}
+
 h1 {
     margin: 10px;
     font-size: 58px;
@@ -112,6 +117,18 @@ h4 {
 .introBtn:hover {
     font-size: 46px;
     letter-spacing: 2px;
+}
+
+.imprintBtn {
+    display: none;
+    color: #ffcc00;
+    background-color: transparent;
+    font-size: 42px;
+    letter-spacing: 3px;
+    text-shadow: 4px 4px 8px rgb(0, 0, 0, 0.6);
+    font-family: 'ZABARS', 'sans-serif';
+    border: none;
+    cursor: pointer;
 }
 
 .instrctnBtn {
@@ -250,7 +267,7 @@ span:hover {
     visibility: hidden;
     left: 0;
     right: 0;
-    bottom: 8px;
+    bottom: 78px;
 }
 
 .partHalf {

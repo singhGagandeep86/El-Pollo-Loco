@@ -58,60 +58,52 @@ class Keyboard {
 
     attachButtonPressEvents() {
         ["touchstart", "mousedown"].forEach((event) => {
-            document.getElementById('leftBtn').addEventListener(event, (e) => {
-                e.preventDefault();
+            document.getElementById('leftBtn').addEventListener(event, () => {
                 this.LEFT = true;
-            });
+            }, {passive: true});
         });
 
 
         ["touchend", "mouseup"].forEach((event) => {
-            document.getElementById('leftBtn').addEventListener(event, (e) => {
-                e.preventDefault();
+            document.getElementById('leftBtn').addEventListener(event, () => {
                 this.LEFT = false;
-            });
+            }, {passive: true});
         });
 
         ["touchstart", "mousedown"].forEach((event) => {
-            document.getElementById('rightBtn').addEventListener(event, (e) => {
-                e.preventDefault();
+            document.getElementById('rightBtn').addEventListener(event, () => {
                 this.RIGHT = true;
-            });
+            }, {passive: true});
         });
 
         ["touchend", "mouseup"].forEach((event) => {
-            document.getElementById('rightBtn').addEventListener(event, (e) => {
-                e.preventDefault();
+            document.getElementById('rightBtn').addEventListener(event, () => {
                 this.RIGHT = false;
-            });
+            }, {passive: true});
         });
 
         ["touchstart", "mousedown"].forEach((event) => {
-            document.getElementById('jumpBtn').addEventListener(event, (e) => {
-                e.preventDefault();
+            document.getElementById('jumpBtn').addEventListener(event, () => {
                 this.SPACE = true;
-            });
+            }, {passive: true});
         });
 
         ["touchend", "mouseup"].forEach((event) => {
-            document.getElementById('jumpBtn').addEventListener(event, (e) => {
-                e.preventDefault();
+            document.getElementById('jumpBtn').addEventListener(event, () => {
                 this.SPACE = false;
-            });
+            }, {passive: true});
         });
 
         ["touchstart", "mousedown"].forEach((event) => {
-            document.getElementById('throwBtn').addEventListener(event, (e) => {
-                e.preventDefault();
+            document.getElementById('throwBtn').addEventListener(event, () => {
                 this.D = true;
-            });
+            }, {passive: true});
         });
 
         ["touchend", "mouseup"].forEach((event) => {
-            document.getElementById('throwBtn').addEventListener(event, (e) => {
-                e.preventDefault();
+            document.getElementById('throwBtn').addEventListener(event, () => {
                 this.D = false;
-            });
+            }, {passive: true});
         });
 
     }

@@ -126,6 +126,7 @@ class World {
 
     handleCollisionFromAbove(enemy) {
         if (this.character.isColliding(enemy)) {
+            // if (enemy.y - (this.character.y + this.character.height - this.character.offset.bottom) > 0) {
             if (this.character.inAir()) {
                 this.character.jump();
                 this.sounds.CHICKEN_DIE.play();
@@ -133,6 +134,8 @@ class World {
                 setTimeout(() => {
                     this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
                 }, 200);
+                // }
+
             } else {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
