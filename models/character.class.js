@@ -108,21 +108,33 @@ class Character extends MoveableObject {
 
     moveCharacter() {
         setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEnd_x) {
-                this.moveRight();
-                this.otherDirection = false;
-            }
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
-                this.otherDirection = true;
-            }
-            if (this.world.keyboard.SPACE && !this.inAir()) {
-                this.jump();
-                sounds.JUMP.play();
-                sounds.JUMP.volume = 0.4;
-            }
+            this.controlRightMovement();
+            this.controlLeftMovement();
+            this.controlJumpMovement();
             this.world.camera_x = -this.x + 100;
         })
+    }
+
+    controlRightMovement() {
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEnd_x) {
+            this.moveRight();
+            this.otherDirection = false;
+        }
+    }
+
+    controlLeftMovement() {
+        if (this.world.keyboard.LEFT && this.x > 0) {
+            this.moveLeft();
+            this.otherDirection = true;
+        }
+    }
+
+    controlJumpMovement() {
+        if (this.world.keyboard.SPACE && !this.inAir()) {
+            this.jump();
+            sounds.JUMP.play();
+            sounds.JUMP.volume = 0.4;
+        }
     }
 
     initiatingAnimations() {
@@ -135,14 +147,18 @@ class Character extends MoveableObject {
                 this.pepeJumping();
             }
             else {
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT && !this.inAir()) {
-                    this.pepeWalking();
-                }
-                else {
-                    this.pepeSleeping();
-                }
+                this.cntrlOtherMovement();
             }
         }, 300 / 3);
+    }
+
+    cntrlOtherMovement() {
+        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT && !this.inAir()) {
+            this.pepeWalking();
+        }
+        else {
+            this.pepeSleeping();
+        }
     }
 
     pepeHurting() {

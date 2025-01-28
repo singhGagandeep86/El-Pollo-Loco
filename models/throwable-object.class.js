@@ -53,7 +53,7 @@ class ThrowableObject extends MoveableObject {
             if (!this.isBroken) {
                 this.playAnimation(this.rotatingBottles);
             }
-        }, 100);
+        }, 50);
     }
 
     throw() {
@@ -82,7 +82,7 @@ class ThrowableObject extends MoveableObject {
     throwToEnemy() {
         if (this.isBroken || this.collisionChecked) return;
 
-        const targets = [world.level.enemies, world.endboss]
+        const targets = [...world.level.enemies, world.endboss]
         targets.forEach(target => {
             if (this.isColliding(target)) {
                 this.isBroken = true;
@@ -109,7 +109,10 @@ class ThrowableObject extends MoveableObject {
         this.speedY = 0;
         this.acceleration = 0;
         setTimeout(() => {
-            world.throwableObjects.splice(world.throwableObjects.indexOf(this), 1);
+            const index = world.throwableObjects.indexOf(this);
+            if (index !== -1) {
+                world.throwableObjects.splice(index, 1);
+            }
         }, 500);
     }
 
@@ -119,7 +122,10 @@ class ThrowableObject extends MoveableObject {
         this.acceleration = 0;
         this.playAnimation(this.breakingBottles);
         setTimeout(() => {
-            world.throwableObjects.splice(world.throwableObjects.indexOf(this), 1);
+            const index = world.throwableObjects.indexOf(this);
+            if (index !== -1) {
+                world.throwableObjects.splice(index, 1);
+            }
         }, 100);
     }
 }

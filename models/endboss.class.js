@@ -78,6 +78,7 @@ class Endboss extends MoveableObject {
     }
 
     hurtAnimation() {
+        if (this.energy <= 0) return;
         this.energy -= 10;
         this.world.endbossstatusbar.setHealthPercentage();
         if (this.energy <= 0) {
@@ -99,7 +100,10 @@ class Endboss extends MoveableObject {
 
     bossDead() {
         this.changeState("dead");
-        this.playAnimation(this.dyingImages);
+        setInterval(() => {
+            this.playAnimation(this.dyingImages);
+        }, 100);
+
         this.world.sounds.BOSS.pause();
         setTimeout(() => {
             gameWon();

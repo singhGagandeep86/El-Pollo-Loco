@@ -68,7 +68,8 @@ async function startGame() {
     iconsInGame.classList.remove('disNone');
     mobilePanel.classList.remove('disNone');
     world = new World(canvas, keyboard, sounds);
-    keyboard.attachButtonPressEvents();
+    keyboard.attachKeyPressEvents();
+    keyboard.mobilePanelEvents();
     world.sounds.WINNING.pause();
     world.sounds.LOST.pause();
 }

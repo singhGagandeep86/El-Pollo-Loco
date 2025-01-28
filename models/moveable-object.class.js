@@ -6,6 +6,7 @@ class MoveableObject extends DrawableObject {
     acceleration = 1;
     energy = 100;
     lastHit = 0;
+    world;
 
     offset = {
         top: 0,
@@ -14,12 +15,24 @@ class MoveableObject extends DrawableObject {
         bottom: 0,
     };
 
+    constructor(world) {
+        super();
+        this.world = world;
+    }
+
     applyGravity() {
         setInterval(() => {
             if (this.inAir() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
+                if (this.speedY < 0) {
+                   world.characterCollisionWithEnemy();
+                }
+                if (!this.inAir()) {
+                    this.speedY = 0;
+                }
             }
+
         }, 1000 / 25);
     }
 
@@ -32,18 +45,13 @@ class MoveableObject extends DrawableObject {
     }
 
     isColliding(mo) {
-        return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
-            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
-            this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
-            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
+        const offsetThis = this.offset || { left: 0, right: 0, top: 0, bottom: 0 };
+        const offsetMo = mo.offset || { left: 0, right: 0, top: 0, bottom: 0 };
+        return this.x + this.width - offsetThis.right > mo.x + offsetMo.left &&
+            this.y + this.height - offsetThis.bottom > mo.y + offsetMo.top &&
+            this.x + offsetThis.left < mo.x + mo.width - offsetMo.right &&
+            this.y + offsetThis.top < mo.y + mo.height;
     }
-
-//     isColliding(obj) {
-//         return (this.x + this.width) >= obj.x && this.x <= (obj.x + obj.width) &&
-//             (this.y + this.offsety + this.height) >= obj.y &&
-//             (this.y + this.offsety) <= (obj.y + obj.height) && 
-
-// }
 
 
     hit() {

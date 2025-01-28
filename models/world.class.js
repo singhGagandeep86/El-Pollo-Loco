@@ -69,7 +69,6 @@ class World {
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
@@ -126,21 +125,29 @@ class World {
     }
 
     handleCollisionFromAbove(enemy) {
-        let characterBottom = this.character.y + this.character.height - this.character.offset.bottom;
-        let enemyTop = enemy.y + enemy.offset.top;
+        const characterBottom = this.character.y + this.character.height - this.character.offset.bottom;
+        const enemyTop = enemy.y + enemy.offset.top;
+
         if (this.character.isColliding(enemy)) {
-            if (this.character.speedY < 0 && characterBottom >= enemyTop) {
-                this.character.jump();
-                this.sounds.CHICKEN_DIE.play();
-                enemy.dyingAnimation();
-                setTimeout(() => {
-                    this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
-                }, 200);
+            if (this.character.inAir() && characterBottom < enemyTop + 20) {
+                this.safeJump(enemy);
             } else {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
             }
         }
+    }
+
+    safeJump(enemy) {
+        this.character.jump();
+        this.sounds.CHICKEN_DIE.play();
+        enemy.dyingAnimation();
+        setTimeout(() => {
+            const index = this.level.enemies.indexOf(enemy);
+            if (index !== -1) {
+                this.level.enemies.splice(index, 1);
+            }
+        }, 200);
     }
 
     checkCollisionwithCoins() {
@@ -172,11 +179,6 @@ class World {
                     this.enemyCollision(enemy);
                 }
             });
-            if (this.endboss.isColliding(bottle)) {
-                let collidingBottle = this.throwableObjects.indexOf(bottle);
-                this.throwableObjects.splice(collidingBottle, 1);
-                this.endboss.hurtAnimation(this);
-            }
         });
     }
 

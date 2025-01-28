@@ -56,5 +56,4 @@ class EndbossStatusBar extends DrawableObject {
             ctx.fillText(`${health}`, this.x + this.width + 6, this.y + 40);
         }
     }
-
 }
