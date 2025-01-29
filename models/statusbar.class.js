@@ -10,6 +10,9 @@ class Statusbar extends DrawableObject {
     ]
     percentage = 100;
 
+    /** Constructs a new Statusbar object.
+    Initializes the object with an image, loads the other images in the IMAGES_HEALTH array, 
+    sets the percentage to 100, and sets the width and height of the object to 200 and 60 respectively. */
     constructor() {
         super().loadImage(this.IMAGES_HEALTH[0]);
         this.loadImages(this.IMAGES_HEALTH);
@@ -18,7 +21,8 @@ class Statusbar extends DrawableObject {
         this.height = 60;
     }
 
-
+    /** Sets the percentage of the Statusbar to the given value.
+     * @param {number} percentage - the percentage to set the Statusbar to, from 0 to 100.  */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES_HEALTH[this.resolveImageIndex()];
@@ -27,6 +31,8 @@ class Statusbar extends DrawableObject {
         this.y = 0;
     }
 
+    /** Resolves the index of the image to use from the IMAGES_HEALTH array, based on the percentage of health.
+        @returns {number} the index of the image to use */
     resolveImageIndex() {
         if (this.percentage == 100) return 5;
         if (this.percentage > 80) return 4;
@@ -36,6 +42,8 @@ class Statusbar extends DrawableObject {
         return 0;
     }
 
+    /** Draws the health of the Statusbar on the canvas.
+        @param {CanvasRenderingContext2D} ctx - the context to draw on. */
     drawHealth(ctx) {
         let health = this.percentage;
         ctx.font = '22px ZABARS';

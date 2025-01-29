@@ -14,6 +14,9 @@ class Bottles extends MoveableObject {
         'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'
     ]
 
+     /* Construct a new Bottles object
+     * @param {number} x - the x-coordinate of the bottle &  @param {number} y - the y-coordinate of the bottle
+     */
     constructor(x, y) {
         super().loadImage(this.IMAGES[0]);
         this.loadImages(this.IMAGES);
@@ -21,7 +24,8 @@ class Bottles extends MoveableObject {
         this.y = y;
         this.animate();
     }
-
+    
+    /* Animate the bottle images every 600 milliseconds.*/
     animate() {
         setInterval(() => {
             this.playAnimation(this.IMAGES);

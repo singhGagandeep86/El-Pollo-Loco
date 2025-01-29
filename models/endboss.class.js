@@ -55,6 +55,8 @@ class Endboss extends MoveableObject {
     state;
     currentInterval = null;
 
+    /** Constructs an Endboss object, initializing its images and starting its animation.
+      @param {Object} world - The game world instance where this endboss exists. */
     constructor(world) {
         super().loadImage(this.alertImages[0]);
         this.loadImages(this.alertImages);
@@ -66,6 +68,10 @@ class Endboss extends MoveableObject {
         this.animate();
     }
 
+    /** Animates the endboss by continuously checking its state and its distance to Pepe,
+     * and then acting accordingly.
+     * If the endboss is hurt or dead, it plays the hurt or dead animation.
+     * If the endboss is neither hurt nor dead, it handles its behavior in handleBossBehavior function. */
     animate() {
         setInterval(() => {
             let distanceToPepe = this.x - this.world.character.x;
@@ -77,6 +83,9 @@ class Endboss extends MoveableObject {
         }, 100);
     }
 
+    /** Reduces the energy of the endboss and updates its health status bar.
+     * If the endboss's energy drops to zero or below, it triggers the death sequence.
+     * Otherwise, it plays the hurt animation and updates the boss's behavior accordingly. */
     hurtAnimation() {
         if (this.energy <= 0) return;
         this.energy -= 10;
@@ -88,6 +97,8 @@ class Endboss extends MoveableObject {
         }
     }
 
+    /** Handles the behavior of the endboss depending on the distance to Pepe.
+     * @param {number} distanceToPepe - the distance between the endboss and Pepe*/
     handleBossBehavior(distanceToPepe) {
         if (distanceToPepe >= 550 && this.state !== "alert") {
             this.changeState("alert", this.alertImages, this.normalMusic());
@@ -98,6 +109,9 @@ class Endboss extends MoveableObject {
         }
     }
 
+    /** Triggers the death sequence of the endboss.
+     * Changes the state of the endboss to "dead" and plays the dying animation.
+     * Also pauses the boss music and waits 2 seconds before triggering the gameWon() function.*/
     bossDead() {
         this.changeState("dead");
         setInterval(() => {
@@ -110,6 +124,10 @@ class Endboss extends MoveableObject {
         }, 2000);
     }
 
+    /** Handles the behavior of the endboss when it is hurt.
+     * Changes the state of the endboss to "hurt" and plays the hurt animation.
+     * If the endboss's energy is less than 70, it increases the speed of the endboss and the playback rate of the boss music.
+     * Also plays the hurt sound effect and increases its volume to 1. */
     bossHurting() {
         this.changeState("hurt");
         this.playAnimation(this.hurtImages);
@@ -121,22 +139,33 @@ class Endboss extends MoveableObject {
         this.world.sounds.BOSS_HURT.volume = 1;
     }
 
+    /** Pauses the normal game music and plays the boss music instead.
+     * Also sets the volume of the boss music to 0.4. */
     bossMusic() {
         this.world.sounds.NORMAL_GAME.pause();
         this.world.sounds.BOSS.play();
         this.world.sounds.BOSS.volume = 0.4;
     }
 
+    /** Pauses the boss music and plays the normal game music instead.
+     * Sets the volume of the normal game music to 0.4.*/
     normalMusic() {
         this.world.sounds.NORMAL_GAME.play();
         this.world.sounds.BOSS.pause();
     }
 
+    /** Plays the boss attack sound effect.
+     * Sets the volume of the boss attack sound effect to 1.*/
     bossAttack() {
         this.world.sounds.BOSS_ATTACK.play();
         this.world.sounds.BOSS_ATTACK.volume = 1;
     }
 
+    /** Changes the state of the endboss, stops any ongoing animation intervals,
+     * and starts a new interval to play animations for the specified state.
+     * @param {string} newState - The new state for the endboss.
+     * @param {string[]} images - Array of images to be used for the animation.
+     * @param {function|null} action - Optional action to be executed with each animation frame.*/
     changeState(newState, images, action = null) {
         if (this.currentInterval) {
             clearInterval(this.currentInterval);

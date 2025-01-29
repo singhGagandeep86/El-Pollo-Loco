@@ -45,6 +45,8 @@ class EndbossStatusBar extends DrawableObject {
         return 0;
     }
 
+    /** Draws the health of the endboss on the status bar.
+     * @param {CanvasRenderingContext2D} ctx - the context to draw on */
     drawCollectedBottles(ctx) {
         let health = this.percentage;
         ctx.font = '22px ZABARS';

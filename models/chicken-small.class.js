@@ -29,6 +29,8 @@ class ChickenSmall extends MoveableObject {
         this.animate();
     }
 
+    /** Animates the chicken.
+     * Animates the chicken by moving it left and playing its walking animation. */
     animate() {
         setInterval(() => {
             if (!this.died) {
@@ -42,6 +44,8 @@ class ChickenSmall extends MoveableObject {
         }, 1000 / 60);
     }
 
+    /** Animates the chicken dying.
+     * If the chicken hasn't died yet, this plays the dying animation and marks the chicken as dead.*/
     dyingAnimation() {
         if (!this.died) {
             this.died = true;

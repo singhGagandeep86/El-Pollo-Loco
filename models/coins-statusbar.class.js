@@ -44,6 +44,8 @@ class CoinsStatusBar extends DrawableObject {
         return 0;
     }
 
+    /** Draws the number of coins collected in the world
+     * @param {CanvasRenderingContext2D} ctx - the context to draw on */
     drawCollectedCoins(ctx) {
         let coinsCollected = this.percentage / 10;
         ctx.font = '22px ZABARS';
