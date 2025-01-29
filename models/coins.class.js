@@ -12,9 +12,11 @@ class Coins extends MoveableObject {
         bottom: 38
     };
 
-    /** Construct a new Coin at the given x and y coordinates.
+    /** 
+     * Construct a new Coin at the given x and y coordinates.
      * @param {number} x - the x-coordinate of the coin
-     * @param {number} y - the y-coordinate of the coin */
+     * @param {number} y - the y-coordinate of the coin
+     */
     constructor(x, y) {
         super().loadImage(this.IMAGES[0]);
         this.loadImages(this.IMAGES);
@@ -23,8 +25,10 @@ class Coins extends MoveableObject {
         this.animate();
     }
 
-    /** Animates the coin by continuously playing its animation
-     every 600 milliseconds. */
+    /** 
+     * Animates the coin by continuously playing its animation
+     * every 600 milliseconds. 
+     */
     animate() {
         setInterval(() => {
             this.playAnimation(this.IMAGES);

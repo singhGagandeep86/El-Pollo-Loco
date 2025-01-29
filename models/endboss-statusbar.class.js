@@ -13,6 +13,10 @@ class EndbossStatusBar extends DrawableObject {
     percentage;
     world;
 
+    /**
+     * Constructor for the EndbossStatusBar.
+     * @param {World} world - The World object that this EndbossStatusBar is part of.
+     */
     constructor(world) {
         super().loadImage(this.IMAGES_HEALTH[0]);
         this.loadImages(this.IMAGES_HEALTH);
@@ -24,18 +28,30 @@ class EndbossStatusBar extends DrawableObject {
         this.setPercentage(100);
     }
 
+    /**
+     * Updates the health percentage of the EndbossStatusBar and changes the displayed image accordingly.
+     * @param {number} percentage - The new percentage of health to set, expected to be between 0 and 100.
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES_HEALTH[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
+    /**
+     * Sets the percentage of health in the EndbossStatusBar based on the current energy value of the endboss.
+     * @returns {void}
+     */
     setHealthPercentage() {
         let health = this.world.endboss.energy;
         this.percentage = health;
         this.setPercentage(health);
     }
 
+    /**
+     * Resolves the index of the image to use from the IMAGES_HEALTH array, based on the percentage of health.
+     * @returns {number} the index of the image to use 
+     */
     resolveImageIndex() {
         if (this.percentage == 100) return 5;
         if (this.percentage >= 80) return 4;
@@ -45,8 +61,10 @@ class EndbossStatusBar extends DrawableObject {
         return 0;
     }
 
-    /** Draws the health of the endboss on the status bar.
-     * @param {CanvasRenderingContext2D} ctx - the context to draw on */
+    /** 
+     * Draws the health of the endboss on the status bar.
+     * @param {CanvasRenderingContext2D} ctx - the context to draw on 
+     */
     drawCollectedBottles(ctx) {
         let health = this.percentage;
         ctx.font = '22px ZABARS';

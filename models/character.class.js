@@ -71,8 +71,9 @@ class Character extends MoveableObject {
         right: 30,
         bottom: 20,
     };
-    
-    /** Initialize the character's properties, load the character's images, and start the animation and gravity.
+
+    /** 
+     * Initialize the character's properties, load the character's images, and start the animation and gravity.
      */
     constructor() {
         super().loadImage(this.walkingImages[0]);
@@ -113,13 +114,17 @@ class Character extends MoveableObject {
         })
     }
 
-    /**Determines if the character is not out of bounds on the x-axis, and the character is not in the air. */
+    /**
+     * Determines if the character is not out of bounds on the x-axis, and the character is not in the air. 
+     */
     walkingRadius() {
         return this.world.keyboard.RIGHT || this.world.keyboard.LEFT && 0 > this.x < this.world.levelEnd_x && !this.inAir();
     }
 
-    /**Moves the character based on the keyboard input and moves the camera with the character.
-     * This method is called every frame. */
+    /**
+     * Moves the character based on the keyboard input and moves the camera with the character.
+     * This method is called every frame. 
+     */
     moveCharacter() {
         setInterval(() => {
             this.controlRightMovement();
@@ -129,8 +134,10 @@ class Character extends MoveableObject {
         })
     }
 
-    /** If the right arrow key is pressed and the character is not out of bounds on the right,
-     * move the character to the right and set the otherDirection property to false.*/
+    /** 
+     * If the right arrow key is pressed and the character is not out of bounds on the right,
+     * move the character to the right and set the otherDirection property to false.
+     */
     controlRightMovement() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEnd_x) {
             this.moveRight();
@@ -138,8 +145,10 @@ class Character extends MoveableObject {
         }
     }
 
-    /** If the left arrow key is pressed and the character is not out of bounds on the left,
-     * move the character to the left and set the otherDirection property to true.*/
+    /** 
+     * If the left arrow key is pressed and the character is not out of bounds on the left,
+     * move the character to the left and set the otherDirection property to true.
+     */
     controlLeftMovement() {
         if (this.world.keyboard.LEFT && this.x > 0) {
             this.moveLeft();
@@ -147,8 +156,10 @@ class Character extends MoveableObject {
         }
     }
 
-    /** Checks if the jump key is pressed and if the character is not in the air.
-     * If both conditions are met, the character jumps and the jump sound is played. */
+    /** 
+     * Checks if the jump key is pressed and if the character is not in the air.
+     * If both conditions are met, the character jumps and the jump sound is played. 
+     */
     controlJumpMovement() {
         if (this.world.keyboard.SPACE && !this.inAir()) {
             this.jump();
@@ -157,7 +168,9 @@ class Character extends MoveableObject {
         }
     }
 
-    /** Checks the state of the character and initiates the corresponding animation. This is done every 100ms.*/
+    /** 
+    * Checks the state of the character and initiates the corresponding animation. This is done every 100ms.
+    */
     initiatingAnimations() {
         setInterval(() => {
             if (this.isHurt()) {
@@ -173,8 +186,10 @@ class Character extends MoveableObject {
         }, 300 / 3);
     }
 
-    /** Checks if the character is not in the air and if the character is moving left or right.
-     * If both conditions are met, the character starts walking otherwise the character starts sleeping.*/
+    /** 
+     * Checks if the character is not in the air and if the character is moving left or right.
+     * If both conditions are met, the character starts walking otherwise the character starts sleeping.
+     */
     cntrlOtherMovement() {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT && !this.inAir()) {
             this.pepeWalking();
@@ -184,15 +199,19 @@ class Character extends MoveableObject {
         }
     }
 
-/** Resets the hurt animation count, pauses the sleeping sound, and plays the hurting animation for the character.*/
+    /** 
+    * Resets the hurt animation count, pauses the sleeping sound, and plays the hurting animation for the character.
+    */
     pepeHurting() {
         this.count = 0;
         this.world.sounds.SLEEPING.pause();
         this.playAnimation(this.hurtingImages);
     }
 
-    /** Resets the hurt animation count, pauses the normal game sound and plays the dying animation for the character.
-     * The character is also set to y position 184 and the gameLost() function is called after 100ms. */
+    /** 
+     * Resets the hurt animation count, pauses the normal game sound and plays the dying animation for the character.
+     * The character is also set to y position 184 and the gameLost() function is called after 100ms. 
+     */
     pepeDying() {
         this.count = 0;
         this.playAnimation(this.dyingImages);
@@ -203,22 +222,32 @@ class Character extends MoveableObject {
         }, 100);
     }
 
-    /** Resets the hurt animation count, pauses the sleeping sound and plays the jumping animation for the character. */
+    /** 
+     * Resets the hurt animation count, pauses the sleeping sound, and plays the jumping animation for the character.
+     * The jumping animation is only played if the character is not already in the jumping animation.
+    */
     pepeJumping() {
-        this.count = 0;
-        this.world.sounds.SLEEPING.pause();
-        this.playAnimation(this.jumpingImages);
+        if (this.currentAnimation !== this.jumpingImages) {
+            this.count = 0;
+            this.world.sounds.SLEEPING.pause();
+            this.playAnimation(this.jumpingImages);
+            this.currentAnimation = this.jumpingImages;
+        }
     }
 
-    /** Resets the hurt animation count, pauses the sleeping sound and plays the walking animation for the character.*/
+    /** 
+     * Resets the hurt animation count, pauses the sleeping sound and plays the walking animation for the character.
+     */
     pepeWalking() {
         this.count = 0;
         this.world.sounds.SLEEPING.pause();
         this.playAnimation(this.walkingImages);
     }
 
-    /** Checks the animation count and plays either the idle or long idle animation for the character. 
-     * If the count is greater than 30, the long idle animationis played and the sleeping sound is played.*/
+    /** 
+     * Checks the animation count and plays either the idle or long idle animation for the character. 
+     * If the count is greater than 30, the long idle animationis played and the sleeping sound is played.
+     */
     pepeSleeping() {
         this.playAnimation(this.idleImages);
         this.count++;

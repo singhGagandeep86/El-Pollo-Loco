@@ -28,6 +28,7 @@ class ThrowableObject extends MoveableObject {
         bottom: 18
     };
 
+    world;
     throwInterval = null;
     collisionChecked = false;
     isBroken = false;
@@ -37,7 +38,7 @@ class ThrowableObject extends MoveableObject {
      * @param {number} x - The x-coordinate to spawn the object at
      * @param {number} y - The y-coordinate to spawn the object at
      */
-    constructor(x, y) {
+    constructor(x, y, world) {
         super().loadImage(this.rotatingBottles[0]);
         this.loadImages(this.rotatingBottles);
         this.loadImages(this.breakingBottles);
@@ -45,20 +46,25 @@ class ThrowableObject extends MoveableObject {
         this.y = y;
         this.width = 50;
         this.height = 68;
+        this.world = world;
         this.initiateThrow();
     }
 
-    /** Initializes the throwing sequence of the bottle.
-        This method is called in the constructor and is responsible for triggering the throwing animation 
-        and the throwing logic. */
+    /** 
+     * Initializes the throwing sequence of the bottle.
+     * This method is called in the constructor and is responsible for triggering the throwing animation 
+     *  and the throwing logic. 
+     */
     initiateThrow() {
         this.animate();
         this.throw();
     }
 
-    /** Animates the throwable object by continuously playing its rotating bottle animation.
-        This method sets an interval to update the animation every 50 milliseconds,
-        provided the bottle is not broken. */
+    /** 
+     * Animates the throwable object by continuously playing its rotating bottle animation.
+     * This method sets an interval to update the animation every 50 milliseconds,
+     * provided the bottle is not broken. 
+     * */
     animate() {
         setInterval(() => {
             if (!this.isBroken) {
@@ -67,13 +73,16 @@ class ThrowableObject extends MoveableObject {
         }, 50);
     }
 
-    /** Throws the bottle by setting the vertical speed of the bottle to 10, applies gravity to the bottle, 
-        checks the direction of the bottle (to see if it should be flipped), 
-        and then starts an interval to update the throwing logic every 25 milliseconds. */
+    /** 
+     * Throws the bottle by setting the vertical speed of the bottle to 10, applies gravity to the bottle, 
+     *  checks the direction of the bottle (to see if it should be flipped), 
+     *  and then starts an interval to update the throwing logic every 25 milliseconds.
+     */
     throw() {
         this.speedY = 10;
         this.applyGravity();
         this.checkDirection();
+        this.world.bottlesstatusBar.setPercentageFromBottles();
         this.throwInterval = setInterval(() => {
             this.throwToEnemy();
             this.throwToFloor();
@@ -81,14 +90,18 @@ class ThrowableObject extends MoveableObject {
         }, 25);
     }
 
-    /** Checks the direction of the character and assigns it to the otherDirection property of the ThrowableObject. */
+    /** 
+     * Checks the direction of the character and assigns it to the otherDirection property of the ThrowableObject. 
+     */
     checkDirection() {
         this.otherDirection = world.character.otherDirection;
     }
 
-    /** Moves the bottle to the right or left by 5 units.
-        If the bottle is moving to the right (otherDirection is false), it moves to the right.
-        If the bottle is moving to the left (otherDirection is true), it moves to the left.  */
+    /** 
+     * Moves the bottle to the right or left by 5 units.
+     * If the bottle is moving to the right (otherDirection is false), it moves to the right.
+     * If the bottle is moving to the left (otherDirection is true), it moves to the left.  
+     */
     throwing() {
         if (this.otherDirection === false) {
             this.x += 5;
@@ -97,9 +110,11 @@ class ThrowableObject extends MoveableObject {
         }
     }
 
-    /** Checks if the bottle has hit an enemy or the endboss. If a collision is detected, it sets the bottle as broken,
-        sets the collision checked flag to true, and triggers the dying animation of the target or the hurt animation
-        of the endboss. If the target was an enemy, it also triggers the onEnemyCollision method of the bottle. */
+    /** 
+     * Checks if the bottle has hit an enemy or the endboss. If a collision is detected, it sets the bottle as broken,
+     * sets the collision checked flag to true, and triggers the dying animation of the target or the hurt animation
+     * of the endboss. If the target was an enemy, it also triggers the onEnemyCollision method of the bottle. 
+     */
     throwToEnemy() {
         if (this.isBroken || this.collisionChecked) return;
 
@@ -114,8 +129,10 @@ class ThrowableObject extends MoveableObject {
         });
     }
 
-    /** Checks if the bottle has hit the ground. If a collision is detected, it sets the bottle as broken,
-        sets the collision checked flag to true, and triggers the groundCollision method. */
+    /** 
+     * Checks if the bottle has hit the ground. If a collision is detected, it sets the bottle as broken,
+     * sets the collision checked flag to true, and triggers the groundCollision method. 
+     */
     throwToFloor() {
         if (this.y >= 378 && !this.collisionChecked) {
             this.isBroken = true;
@@ -123,8 +140,10 @@ class ThrowableObject extends MoveableObject {
         }
     }
 
-    /** Removes the bottle from the world after a collision with the ground. After a brief animation, the bottle is removed
-        from the world. The sound effect for a bottle hitting the ground is played. */
+    /** 
+     * Removes the bottle from the world after a collision with the ground. After a brief animation, 
+     * the bottle is removed from the world. The sound effect for a bottle hitting the ground is played. 
+     */
     groundCollision() {
         clearInterval(this.throwInterval);
         world.sounds.COLLIDE_BOTTLE.play();
@@ -139,8 +158,10 @@ class ThrowableObject extends MoveableObject {
         }, 500);
     }
 
-    /** Removes the bottle from the world after a collision with an enemy. After a brief animation, the bottle is removed
-        from the world. This method is called by the throwToEnemy method after a collision with an enemy is detected. */
+    /** 
+     * Removes the bottle from the world after a collision with an enemy. After a brief animation, the bottle is removed
+     * from the world. This method is called by the throwToEnemy method after a collision with an enemy is detected. 
+     */
     onEnemyCollision() {
         clearInterval(this.throwInterval);
         this.speedY = 0;

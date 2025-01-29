@@ -97,7 +97,6 @@ function restart() {
  * Handles the game win scenario by stopping all intervals, toggling music, and playing the winning sound.
  * Updates the result board to display the winning image, hides in-game icons, and shows intro buttons.
  */
-
 function gameWon() {
     for (let i = 1; i < 9999; i++) window.clearInterval(i);
     world.sounds.WINNING.play();
@@ -213,6 +212,11 @@ function exitFullscreen(document) {
     }
 }
 
+/**
+ * Toggles background music on or off based on the current state.
+ * If music is currently playing, it pauses all background music.
+ * Otherwise, it resumes playing the background music.
+ */
 function toggleMusic() {
     if (music) {
         pauseBackgroundMusic();
@@ -222,6 +226,12 @@ function toggleMusic() {
     }
 }
 
+/**
+ * Pauses all background music and sounds in the game. This is done by setting the
+ * volume to 0, rewinding the audio to the beginning, and muting it. The music
+ * icon is also updated to a mute symbol. This function is called when the user
+ * toggles the music on or off.
+ */
 function pauseBackgroundMusic() {
     for (let key in world.sounds) {
         if (world.sounds[key] instanceof Audio) {
@@ -234,6 +244,10 @@ function pauseBackgroundMusic() {
     music = false;
 }
 
+/**
+ * Restores the volume of the background music and unmutes it.
+ * This is called when the user toggles the music on.
+ */
 function playBackgroundMusic() {
     for (let key in world.sounds) {
         if (world.sounds[key] instanceof Audio) {

@@ -19,6 +19,10 @@ class ChickenSmall extends MoveableObject {
     ];
     died = false;
 
+    /**
+     * Constructs a new ChickenSmall at the given x-coordinate.
+     * @param {number} x - The x-coordinate to spawn the chicken at.
+     */
     constructor(x) {
         super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
         this.loadImages(this.walkingImages);
@@ -29,8 +33,10 @@ class ChickenSmall extends MoveableObject {
         this.animate();
     }
 
-    /** Animates the chicken.
-     * Animates the chicken by moving it left and playing its walking animation. */
+    /** 
+     * Animates the chicken.
+     * Animates the chicken by moving it left and playing its walking animation. 
+     */
     animate() {
         setInterval(() => {
             if (!this.died) {
@@ -44,8 +50,10 @@ class ChickenSmall extends MoveableObject {
         }, 1000 / 60);
     }
 
-    /** Animates the chicken dying.
-     * If the chicken hasn't died yet, this plays the dying animation and marks the chicken as dead.*/
+    /** 
+     * Animates the chicken dying.
+     * If the chicken hasn't died yet, this plays the dying animation and marks the chicken as dead.
+     */
     dyingAnimation() {
         if (!this.died) {
             this.died = true;

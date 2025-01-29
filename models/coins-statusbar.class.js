@@ -13,6 +13,10 @@ class CoinsStatusBar extends DrawableObject {
     percentage = 0;
     world;
 
+    /**
+     * Constructor for a CoinsStatusBar object.
+     * @param {World} world - The World object that this StatusBar belongs to.
+     */
     constructor(world) {
         super().loadImage(this.IMAGES_COIN[0]);
         this.loadImages(this.IMAGES_COIN);
@@ -23,18 +27,31 @@ class CoinsStatusBar extends DrawableObject {
         this.world = world;
     }
 
+    /**
+     * Sets the percentage of coins collected and updates the StatusBar image accordingly.
+     * @param {number} percentage - the percentage of coins collected, from 0 to 100.
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES_COIN[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
+    /**
+     * Sets the percentage of the coins collected based on the number of coins in the world's coin collection.
+     * The percentage is calculated as 10 times the number of coins collected.
+     * Updates the status bar image accordingly.
+     */
     setPercentageFromCoins() {
         let coinsCollected = this.world.coinsCollections.length * 10;
         this.percentage = coinsCollected;
         this.setPercentage(coinsCollected);
     }
 
+    /**
+     * Resolves the index of the image to use from the IMAGES_COIN array, based on the percentage of coins collected.
+     * @returns {number} the index of the image to use 
+     */
     resolveImageIndex() {
         if (this.percentage == 100) return 5;
         if (this.percentage >= 80) return 4;
@@ -44,8 +61,10 @@ class CoinsStatusBar extends DrawableObject {
         return 0;
     }
 
-    /** Draws the number of coins collected in the world
-     * @param {CanvasRenderingContext2D} ctx - the context to draw on */
+    /** 
+     * Draws the number of coins collected in the world
+     * @param {CanvasRenderingContext2D} ctx - the context to draw on 
+     */
     drawCollectedCoins(ctx) {
         let coinsCollected = this.percentage / 10;
         ctx.font = '22px ZABARS';

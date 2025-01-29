@@ -18,8 +18,10 @@ class Chicken extends MoveableObject {
     ];
     died = false;
 
-    /** Constructs a new Chicken at the given x-coordinate.
-     * @param {number} x - the x-coordinate of the chicken. */
+    /** 
+     * Constructs a new Chicken at the given x-coordinate.
+     * @param {number} x - the x-coordinate of the chicken. 
+     * */
     constructor(x) {
         super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.loadImages(this.walkingImages);
@@ -30,8 +32,10 @@ class Chicken extends MoveableObject {
         this.animate();
     }
 
-    /** Animates the chicken by continuously playing its walking animation
-     * and moving it to the left, as long as it is not marked as dead. */
+    /** 
+     * Animates the chicken by continuously playing its walking animation
+     * and moving it to the left, as long as it is not marked as dead. 
+     */
     animate() {
         if (!this.died) {
             setInterval(() => {
@@ -44,8 +48,10 @@ class Chicken extends MoveableObject {
         }
     }
 
-    /** Animates the chicken dying by continuously playing its dying animation
-     and marking the chicken as dead, as long as the chicken is not already marked as dead. */
+    /** 
+     * Animates the chicken dying by continuously playing its dying animation
+     * and marking the chicken as dead, as long as the chicken is not already marked as dead. 
+     */
     dyingAnimation() {
         if (!this.died) {
             this.died = true;
