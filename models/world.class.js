@@ -266,6 +266,9 @@ class World {
      */
     safeJump(enemy) {
         this.character.jump();
+        this.character.JumpingAnimation();
+        sounds.JUMP.play();
+        sounds.JUMP.volume = 0.4;
         this.sounds.CHICKEN_DIE.play();
         enemy.dyingAnimation();
         setTimeout(() => {

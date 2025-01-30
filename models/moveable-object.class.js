@@ -136,6 +136,24 @@ class MoveableObject extends DrawableObject {
         this.currentImage++;
     }
 
+
+    /**
+     * Plays a small animation only once on the object by switching through the given list of images at a specific interval.
+     * This method automatically clears the interval when the animation is done.
+     * @param {string[]} images - The list of images to play in sequence.
+     */
+    playSmallAnimation(images) {
+        let i = 0; 
+        const interval = setInterval(() => {
+            let path = images[i]; 
+            this.img = this.imageCache[path]; 
+            i++;
+            if (i >= images.length) { 
+                clearInterval(interval);
+            }
+        }, 160);
+    }
+
     /** 
      * Sets the vertical speed to 20, causing the object to jump. @memberof MoveableObject 
      */

@@ -64,6 +64,7 @@ class Character extends MoveableObject {
     world;
     speed = 1.5;
     count = 0;
+    isJumping = false;
 
     offset = {
         top: 120,
@@ -164,7 +165,9 @@ class Character extends MoveableObject {
      */
     controlJumpMovement() {
         if (this.world.keyboard.SPACE && !this.inAir()) {
+            this.isJumping = true;
             this.jump();
+            this.JumpingAnimation();
             sounds.JUMP.play();
             sounds.JUMP.volume = 0.4;
         }
@@ -194,13 +197,11 @@ class Character extends MoveableObject {
      * and plays the jumping animation. This method is called by the World's animate method.
      */
     JumpingAnimation() {
-        setInterval(() => {
-            if (this.inAir()) {
+            if (this.isJumping) {
                 this.count = 0;
                 this.world.sounds.SLEEPING.pause();
-                this.playAnimation(this.jumpingImages);
+                this.playSmallAnimation(this.jumpingImages);
             }
-        }, 500);
     }
 
     /** 
