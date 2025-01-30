@@ -98,6 +98,8 @@ class Character extends MoveableObject {
         this.moveCharacter();
 
         this.initiatingAnimations();
+
+        this.JumpingAnimation();
     }
 
     /**
@@ -118,7 +120,7 @@ class Character extends MoveableObject {
      * Determines if the character is not out of bounds on the x-axis, and the character is not in the air. 
      */
     walkingRadius() {
-        return this.world.keyboard.RIGHT || this.world.keyboard.LEFT && 0 > this.x < this.world.levelEnd_x && !this.inAir();
+        return (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && 0 > this.x < this.world.levelEnd_x && !this.inAir();
     }
 
     /**
@@ -177,26 +179,28 @@ class Character extends MoveableObject {
                 this.pepeHurting();
             } else if (this.isDead() && this.world.endboss.energy > 0) {
                 this.pepeDying();
-            } else if (this.inAir()) {
-                this.pepeJumping();
+            } else if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.inAir()) {
+                this.pepeWalking();
+            } else if (!this.inAir()) {
+                this.pepeSleeping();
             }
-            else {
-                this.cntrlOtherMovement();
-            }
-        }, 300 / 3);
+        }, 100);
     }
 
-    /** 
-     * Checks if the character is not in the air and if the character is moving left or right.
-     * If both conditions are met, the character starts walking otherwise the character starts sleeping.
+    /**
+     * Animates the character's jump. This method is called every 500ms,
+     * and checks if the character is in the air. If the character is in the air,
+     * it resets the animation counter, pauses the idle animation sound,
+     * and plays the jumping animation. This method is called by the World's animate method.
      */
-    cntrlOtherMovement() {
-        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT && !this.inAir()) {
-            this.pepeWalking();
-        }
-        else {
-            this.pepeSleeping();
-        }
+    JumpingAnimation() {
+        setInterval(() => {
+            if (this.inAir()) {
+                this.count = 0;
+                this.world.sounds.SLEEPING.pause();
+                this.playAnimation(this.jumpingImages);
+            }
+        }, 500);
     }
 
     /** 
@@ -217,22 +221,7 @@ class Character extends MoveableObject {
         this.playAnimation(this.dyingImages);
         this.y = 184;
         this.world.sounds.NORMAL_GAME.pause();
-        setTimeout(() => {
-            gameLost();
-        }, 100);
-    }
-
-    /** 
-     * Resets the hurt animation count, pauses the sleeping sound, and plays the jumping animation for the character.
-     * The jumping animation is only played if the character is not already in the jumping animation.
-    */
-    pepeJumping() {
-        if (this.currentAnimation !== this.jumpingImages) {
-            this.count = 0;
-            this.world.sounds.SLEEPING.pause();
-            this.playAnimation(this.jumpingImages);
-            this.currentAnimation = this.jumpingImages;
-        }
+        setTimeout(() => gameLost(), 100);
     }
 
     /** 
